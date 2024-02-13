@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+	{% block content %}
+
+		<h3>Category: {{filter}}</h3>
+
+		<br>
+
+	   {% for post in posts %}
+
+		<div class="card">            
+            <div class="card-body">   	
+               <div style="float: left;">
+                  <h5 class="card-title" >{{post.title}}</h5>
+                  <h7 class="card-text" >Category: {{ post.category}}<h7><br>
+                  <h7 class="card-text" >{{ post.author.username}} </h7>
+                  <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+               </div>
+               <a class="btn btn-success" href="{{url_for('posts.download', file=post.path)}}" style="float: right">Download</a>            
+            </div>
+        </div>
+        <br>
+
+        {% endfor %}
+
+	{% endblock %}

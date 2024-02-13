@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+	<div class="container mt-5">
+    <h1 class="mb-4" style="text-align:center;">Branch</h1>
+
+
+    <div class="row">
+        <!-- Card 1 -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="/static/stock/cse.jpg" class="card-img-top" alt="Card Image" width="500" height="150">
+                <div class="card-body">
+                    <a href="{{url_for('main.computer')}}">Computer Sci. Engineering</a>
+                    <p class="card-text"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="/static/stock/electrical.jpeg" class="card-img-top" alt="Card Image" width="500" height="150">
+                <div class="card-body">
+                    <a href="{{url_for('main.electrical')}}">Electrical Engineering</a>
+                    <p class="card-text"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="/static/stock/mechanical.jpg" class="card-img-top" alt="Card Image" width="500" height="150">
+                <div class="card-body">
+                    <a href="{{url_for('main.mechanical')}}">Mechanical Engineering</a>
+                    <p class="card-text"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

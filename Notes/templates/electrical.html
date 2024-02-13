@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+
+   {% block content %}
+
+    <form method="POST" action="{{url_for('main.elecfilt')}}" class="d-flex">
+      {{form.hidden_tag()}}
+      {{form.category}}
+      <button class="btn btn-outline-info" type="submit" style="margin-left: 10px;">
+        Filter
+      </button>    
+    </form> 
+
+    <br>
+
+
+   {% for post in posts.items %}
+
+      <div class="card">            
+            <div class="card-body">    
+               <div style="float: left;">
+                  <h5 class="card-title" >{{post.title}}</h5>
+                  <h7 class="card-text" >Category: {{ post.category}}<h7><br>
+                  <h7 class="card-text" >{{ post.author.username}} </h7>
+                  <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+               </div>
+               <a class="btn btn-success" href="{{url_for('posts.download', file=post.path)}}" style="float: right">Download</a>            
+            </div>
+        </div>
+        <br>
+   {% endfor %}
+
+
+      {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+
+      {% if page_num %}
+         {% if posts.page ==page_num %}
+            <a class="btn btn-info mb-4" href="{{url_for('main.electrical', page=page_num)}}">{{page_num}}</a>
+         {% else %}   
+            <a class="btn btn-outline-info mb-4" href="{{url_for('main.electrical', page=page_num)}}">{{page_num}}</a>
+         {% endif %}
+      {% else %}
+
+      {% endif %}
+   {% endfor %}
+
+   
+   {% endblock %}

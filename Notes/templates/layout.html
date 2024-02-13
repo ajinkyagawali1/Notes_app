@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<!--bootstrap css-->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css')}}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+
+	{% if title %}
+		<title>Notes - {{title}}</title>
+	{% else %}
+		<title>Notes</title>
+	{% endif %}
+  <link rel="icon" type="image/x-icon" href="/static/stock/notes.png">
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{{url_for('main.home')}}">
+        <img src="/static/stock/notes.png" width=50px height=50px>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{url_for('main.home')}}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{url_for('main.about')}}">About</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Branch
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="{{url_for('main.computer')}}">Computer Sci. & and Engineering</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{{url_for('main.electrical')}}">Electrical Engineering</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{{url_for('main.mechanical')}}">Mechanical Engineering</a></li>
+          </ul>
+        </li>
+          {% if current_user.is_authenticated%}
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{url_for('posts.new')}}">Upload</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{url_for('users.account')}}">Account</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{url_for('users.logout')}}">Logout</a>
+        </li>
+          {% else %}
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{url_for('users.login')}}">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{url_for('users.register')}}">Register</a>
+        </li>
+          {% endif %}
+      </ul>
+      <form method="POST" action="{{url_for('main.search')}}" class="d-flex">
+      {{form.hidden_tag()}}
+      <input class="form-control me-2" type="search" name="query">
+      <button class="btn btn-outline-info" type="submit">
+        Search
+      </button>    
+    </form>
+    </div>
+  </div>
+</nav>
+</header>
+
+	<main role="main" class="container">
+  <div class="row">
+    <div class="col-md-8">
+
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+          <div class="alert alert-{{category}}">
+            {{message}}
+          </div>
+          {% endfor %}
+        {% endif %}
+
+      {% endwith%}
+
+      {% block content %}{% endblock %}
+    </div> 
+  </div>
+</main>
+
+
+<body style="  min-height: 90vh; display: flex; flex-direction: column">
+  <footer class="bg-body-tertiary text-center" style="  margin-top: auto;">
+  <!-- Grid container -->
+
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
+    © 2024 Copyright:
+    <a class="text-body" href="https://github.com/ajinkyagawali1" target="_blank" rel="noopener noreferrer">Ajinkya Gawali</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+
+</body>
+
+	<!--bootstrap js-->
+	  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
