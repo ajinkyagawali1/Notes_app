@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 from Notes.config import Config
 from flask_mail import Mail
@@ -35,3 +36,9 @@ def create_app(config_class=Config):
 	app.register_blueprint(errors)
 
 	return app
+
+def create_doc_dir():
+	path = "Notes/static/docs" ;
+	exist = os.path.exists(path)
+	if not exist:
+		os.makedirs(path)
